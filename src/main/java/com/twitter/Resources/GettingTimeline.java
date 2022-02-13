@@ -2,6 +2,8 @@ package com.twitter.Resources;
 
 import com.twitter.Services.TwitterConnecter;
 import com.twitter.models.TwitterPost;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -12,9 +14,10 @@ import java.util.stream.Collectors;
 
 public class GettingTimeline {
     public List<List<String>> getTimeline(){
-        TwitterConnecter twitterConnecter= new TwitterConnecter();
-        Twitter twitter = twitterConnecter.connectToTwitter();
         try {
+            ApplicationContext applicationContext= new ClassPathXmlApplicationContext("beans.xml");
+            TwitterConnecter twitterConnecter= applicationContext.getBean("twitterConnector", TwitterConnecter.class);
+            Twitter twitter = twitterConnecter.connectToTwitter();
             List<TwitterPost> list = twitter.getHomeTimeline().stream()
                     .map(item -> {
 
