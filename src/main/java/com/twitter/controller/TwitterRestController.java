@@ -1,7 +1,7 @@
 package com.twitter.controller;
 
-import com.twitter.starter.AddingTweets;
-import com.twitter.starter.GettingTimeline;
+import com.twitter.Resources.AddingTweets;
+import com.twitter.Resources.GettingTimeline;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
