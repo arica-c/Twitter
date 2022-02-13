@@ -1,10 +1,15 @@
 package com.twitter.controller;
 
 import com.twitter.Resources.AddingTweets;
+import com.twitter.Resources.FilterTimeline;
 import com.twitter.Resources.GettingTimeline;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import twitter4j.TwitterException;
+
+import java.io.IOException;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -16,18 +21,7 @@ public class TwitterRestController {
 //        return gettingTimeline.getTimeline();
 
         List<List<String>> msg= gettingTimeline.getTimeline();
-        if(msg.get(0).equals("Access Token not working")) {
-            return msg;
-
-        }
-        else if(msg.get(0).equals("Exception raised while reading the application file"))
-        {
-            return msg;
-        }
-        else
-        {
-            return msg;
-        }
+        return msg;
     }
 
     @RequestMapping(value="/tweet", method=RequestMethod.POST)
@@ -35,11 +29,14 @@ public class TwitterRestController {
         AddingTweets addingtweet= new AddingTweets();
         //return addingtweet.addingTweet(args);
         String msg= addingtweet.addingTweet(args);
-        if(msg.equals("Check your access tokens")){
-            return msg;
-        }
-        else {
-            return msg;
-        }
+        return msg;
+
+    }
+
+    @RequestMapping(path="/timeline/{filter}", method=RequestMethod.GET)
+     public  List<String> searchtweets(@PathVariable("filter") String filter) {
+        FilterTimeline filterTimeline= new FilterTimeline();
+        return filterTimeline.searchtweets(filter);
+
     }
 }
