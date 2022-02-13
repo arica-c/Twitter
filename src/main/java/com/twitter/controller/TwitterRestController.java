@@ -11,11 +11,11 @@ import java.util.List;
 @RequestMapping(path= "/api/1.0/twitter")
 public class TwitterRestController {
     @RequestMapping(value="/timeline", method= RequestMethod.GET)
-    public List<String> getTimeline() {
+    public List<List<String>> getTimeline() {
         GettingTimeline gettingTimeline= new GettingTimeline();
 //        return gettingTimeline.getTimeline();
 
-        List<String> msg= gettingTimeline.getTimeline();
+        List<List<String>> msg= gettingTimeline.getTimeline();
         if(msg.get(0).equals("Access Token not working")) {
             return msg;
 

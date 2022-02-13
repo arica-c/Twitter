@@ -19,7 +19,7 @@ public class TwitterRestControllerTest {
     public void TweetTest() throws TwitterException, IOException {
        TwitterRestController twitterTest= new TwitterRestController();
        assertEquals("Good Morning", twitterTest.addingTweet("Good Morning"));
-        List<String> list=  twitterTest.getTimeline();
+        List<List<String>> list=  twitterTest.getTimeline();
         assertTrue(list instanceof ArrayList);
     }
 
