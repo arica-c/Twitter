@@ -1,21 +1,17 @@
 
-import twitter4j.TwitterException;
-import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.TwitterFactory;
 import twitter4j.Twitter;
-import twitter4j.Status;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
-public class ProgramOne {
-    //program to post a tweet
-
-
-    public static void main(String[] args) {
-        try {
+public class ProgramTwo {
+    public static void main(String[] args){
+        try{
             Properties prop = new Properties();
             String propFileName = "application.properties";
 
@@ -26,8 +22,6 @@ public class ProgramOne {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-
-            //Getting the properties from file
             String consmerKey = prop.getProperty("consumerKey");
             String consumerSecret = prop.getProperty("consumerSecret");
             String accessToken = prop.getProperty("accessToken");
@@ -41,17 +35,15 @@ public class ProgramOne {
             TwitterFactory tf = new TwitterFactory(cb.build());
             Twitter twitter = tf.getInstance();
 
-            StringBuffer s = new StringBuffer();
-            for (int i = 0; i < args.length; i++) {
-                s.append(args[i] + " ");
-            }
-            String string = s.toString();
+                List<String> list = twitter.getHomeTimeline().stream()
+                        .map(item -> item.getText())
+                        .collect(Collectors.toList());
 
-            Status status = twitter.updateStatus(string);
-            String str = status.getText();
-            System.out.println(str);
+
+                for (String s : list) {
+                    System.out.println(s);
+                }
         }
-
         catch(Exception e){
             System.out.println(e.toString());
         }
