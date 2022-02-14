@@ -1,5 +1,6 @@
-package com.twitter.starter;
+package com.twitter.Resources;
 
+import com.twitter.Services.TwitterConnecter;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -14,17 +15,8 @@ import java.util.Properties;
 public class AddingTweets {
     public String addingTweet(String args) {
         try{
-            YMLConfig ymlConfig= new YMLConfig();
-
-            ConfigurationBuilder cb = new ConfigurationBuilder();
-            cb.setDebugEnabled(true).setOAuthConsumerKey(ymlConfig.getConsumerKey())
-                    .setOAuthConsumerSecret(ymlConfig.getConsumerSecret())
-                    .setOAuthAccessToken(ymlConfig.getAccessToken())
-                    .setOAuthAccessTokenSecret(ymlConfig.getTokenSecret());
-            TwitterFactory tf = new TwitterFactory(cb.build());
-            Twitter twitter = tf.getInstance();
-
-
+            TwitterConnecter twitterConnecter= new TwitterConnecter();
+            Twitter twitter = twitterConnecter.connectToTwitter();
             Status status = twitter.updateStatus(args);
             String str = status.getText();
             return str;
