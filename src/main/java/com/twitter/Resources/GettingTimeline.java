@@ -1,5 +1,6 @@
-package com.twitter.starter;
+package com.twitter.Resources;
 
+import com.twitter.Services.TwitterConnecter;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -16,16 +17,8 @@ import java.util.stream.Collectors;
 public class GettingTimeline {
     public List<String> getTimeline(){
         try{
-                YMLConfig ymlConfig= new YMLConfig();
-
-                ConfigurationBuilder cb = new ConfigurationBuilder();
-                cb.setDebugEnabled(true).setOAuthConsumerKey(ymlConfig.getConsumerKey())
-                        .setOAuthConsumerSecret(ymlConfig.getConsumerSecret())
-                        .setOAuthAccessToken(ymlConfig.getAccessToken())
-                        .setOAuthAccessTokenSecret(ymlConfig.getTokenSecret());
-                TwitterFactory tf = new TwitterFactory(cb.build());
-                Twitter twitter = tf.getInstance();
-
+            TwitterConnecter twitterConnecter= new TwitterConnecter();
+            Twitter twitter = twitterConnecter.connectToTwitter();
 
                 List<String> list = twitter.getHomeTimeline().stream()
                     .map(item -> item.getText())
