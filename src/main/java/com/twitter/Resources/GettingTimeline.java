@@ -2,6 +2,8 @@ package com.twitter.Resources;
 
 import com.twitter.Services.TwitterConnecter;
 import com.twitter.models.TwitterPost;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twitter4j.Twitter;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class GettingTimeline {
     public List<List<String>> getTimeline(){
+        Logger logger= LoggerFactory.getLogger(GettingTimeline.class);
         try {
             ApplicationContext applicationContext= new ClassPathXmlApplicationContext("beans.xml");
             TwitterConnecter twitterConnecter= applicationContext.getBean("twitterConnector", TwitterConnecter.class);
@@ -47,6 +50,7 @@ public class GettingTimeline {
         catch(TwitterException te){
             List<List<String>> lst = new ArrayList<List<String>>();
             List<String> list= new ArrayList<String>(Collections.singleton("Access Token not working"));
+            logger.error("Access Token aren't working");
             lst.add(list);
             return lst;
         }
