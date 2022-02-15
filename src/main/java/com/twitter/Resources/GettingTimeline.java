@@ -2,6 +2,7 @@ package com.twitter.Resources;
 
 import com.twitter.Services.TwitterConnecter;
 import com.twitter.models.TwitterPost;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twitter4j.Twitter;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GettingTimeline {
+    @Cacheable(cacheNames = "tweets")
     public List<List<String>> getTimeline(){
         try {
             ApplicationContext applicationContext= new ClassPathXmlApplicationContext("beans.xml");
